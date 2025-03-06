@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { auth } from '../firebase';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +15,7 @@ const Login = () => {
   const handleSendOtp = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/send-otp', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/send-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,8 +73,8 @@ const Login = () => {
 
 
   return (
-    <div className="login-container">
-      <h2>Welcome to Compound</h2>
+    <div className="login-container" style={{ backgroundColor: 'transparent' }}>
+      <h3>Welcome to CompoundN</h3>
       {error && <p className="error">{error}</p>}
       
       <button 
