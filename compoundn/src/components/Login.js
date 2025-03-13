@@ -15,12 +15,14 @@ const Login = () => {
   const handleSendOtp = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/send-otp', {
+      console.log('Sending OTP to API:', process.env.REACT_APP_API_URL); // Debug log
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/send-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email }),
+        mode: 'cors' // Explicitly set CORS mode
       });
 
       const data = await response.json();
@@ -34,7 +36,11 @@ const Login = () => {
       }
     } catch (error) {
       console.error('Error sending OTP:', error);
-      setError('Failed to send OTP. Please try again.');
+      if (!process.env.REACT_APP_API_URL) {
+        setError('API URL not configured. Please check environment variables.');
+      } else {
+        setError(`Failed to send OTP. Please try again. (${error.message})`);
+      }
     }
   };
 
