@@ -10,7 +10,12 @@ const app = express();
 // Middleware
 app.use(cors({
     origin: process.env.NODE_ENV === 'production' 
-        ? [process.env.CORS_ORIGIN, 'https://compound-n.vercel.app']
+        ? [
+            'https://compoundn.onrender.com',
+            'https://compoundn.vercel.app',
+            'https://compoundn.com',
+            'https://www.compoundn.com'
+          ]
         : 'http://localhost:3000',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
